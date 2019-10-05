@@ -6,35 +6,28 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     SHELL=/bin/bash
     export SHELL
 
-%setup
-    # runs on host - the path to the image is $SINGULARITY_ROOTFS
+%labels
+    Maintainer Max Knobbe
+    Version 0.1
 
 %post
-    # post-setup script
-
-    # load environment variables
-    #. /environment
-
-    # use bash as default shell
-    # echo 'SHELL=/bin/bash' >> /environment
-
-    # make environment file executable
-    # chmod +x /environment
-
-    # default mount paths
+    #
+    # default mount and installation paths
+    #
     mkdir /scratch /data 
 
+    #
     # additional packages
+    #
     apt-get update
     apt-get install wget
-    # apt-get install libtoolize
-    # apt-get install aclocal
-    # apt-get install autoheader
     apt-get --assume-yes install automake	
     apt-get --assume-yes install autoconf
     apt-get --assume-yes install libtool
 
+    #
     # install HepMC
+    #
     echo "Installing HepMC"
     mkdir /usr/local/HepMC
     cd /scratch
@@ -46,20 +39,19 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     ./configure \
         --prefix=/usr/local/HepMC \
 	--with-momentum=GEV \
-	--with-length=CM
-	
+	--with-length=CM	
     make
-    # make check
     make install
 
-    # Python Packages
+    #
+    # Install additional Python Packages
+    #
     python3 -m pip install vegas
     python3 -m pip install tensorflow-probability==0.7.0
   
 
 %runscript
-    # executes with the singularity run command
-    # delete this section to use existing docker ENTRYPOINT command
+    python3
 
 %test
     # test that script is a success
