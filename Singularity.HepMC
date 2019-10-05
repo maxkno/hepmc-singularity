@@ -1,0 +1,65 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:1.14.0-gpu-py3
+
+%environment
+    # use bash as default shell
+    SHELL=/bin/bash
+    export SHELL
+
+%setup
+    # runs on host - the path to the image is $SINGULARITY_ROOTFS
+
+%post
+    # post-setup script
+
+    # load environment variables
+    #. /environment
+
+    # use bash as default shell
+    # echo 'SHELL=/bin/bash' >> /environment
+
+    # make environment file executable
+    # chmod +x /environment
+
+    # default mount paths
+    mkdir /scratch /data 
+
+    # additional packages
+    apt-get update
+    apt-get install wget
+    # apt-get install libtoolize
+    # apt-get install aclocal
+    # apt-get install autoheader
+    apt-get --assume-yes install automake	
+    apt-get --assume-yes install autoconf
+    apt-get --assume-yes install libtool
+
+    # install HepMC
+    echo "Installing HepMC"
+    mkdir /usr/local/HepMC
+    cd /scratch
+    wget lcgapp.cern.ch/project/simu/HepMC/download/HepMC-2.06.08.tar.gz
+    tar -xf HepMC-2.06.08.tar.gz
+    rm HepMC-2.06.08.tar.gz
+    cd HepMC-2.06.08
+    ./bootstrap
+    ./configure \
+        --prefix=/usr/local/HepMC \
+	--with-momentum=GEV \
+	--with-length=CM
+	
+    make
+    # make check
+    make install
+
+    # Python Packages
+    python3 -m pip install vegas
+    python3 -m pip install tensorflow-probability==0.7.0
+  
+
+%runscript
+    # executes with the singularity run command
+    # delete this section to use existing docker ENTRYPOINT command
+
+%test
+    # test that script is a success
