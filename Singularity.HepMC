@@ -44,6 +44,37 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     make install
 
     #
+    # install SWIG
+    #
+    echo "Installing SWIG"
+    mkdir /usr/local/SWIG
+    cd /scratch
+    apt-get --assume-yes install g++
+    apt-get --assume-yes install libpcre3 libpcre3-dev
+    wget https://sourceforge.net/projects/swig/files/swig/swig-4.0.0/swig-4.0.0.tar.gz
+    tar -xf swig-4.0.0.tar.gz
+    cd swig-4.0.0
+    ./configure --prefix=/usr/local/SWIG
+    make
+    make install
+    ln -s  /usr/local/SWIG/bin/swig /usr/local/bin/swig	
+
+    #
+    # install Sherpa
+    #
+    echo "Installing Sherpa"
+    apt-get --assume-yes install gfortran
+    mkdir /usr/local/Sherpa
+    cd /scratch
+    wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.6.tar.gz
+    tar -xf 'index.html?f=SHERPA-MC-2.2.6.tar.gz'
+    rm 'index.html?f=SHERPA-MC-2.2.6.tar.gz'
+    cd SHERPA-MC-2.2.6
+    ./configure --prefix /usr/local/Sherpa --enable-hepmc2=/usr/local/HepMC --enable-pyext --with-sqlite3=install
+    make -j4
+    make install -j4
+
+    #
     # Install additional Python Packages
     #
     python3 -m pip install vegas
