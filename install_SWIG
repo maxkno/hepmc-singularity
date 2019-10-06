@@ -1,0 +1,25 @@
+#/bin/bash
+
+# Helper script to install HepMC2 event format
+
+# creating install directory
+echo "Installing SWIG"
+mkdir /usr/local/SWIG
+cd /scratch
+
+# install necessary packages
+apt-get -y install g++ libpcre3 libpcre3-dev
+
+# download SWIG tarball
+wget https://sourceforge.net/projects/swig/files/swig/swig-4.0.0/swig-4.0.0.tar.gz
+tar -xf swig-4.0.0.tar.gz
+cd swig-4.0.0
+
+# install SWIG
+./configure --prefix=/usr/local/SWIG
+make && make install
+ln -s  /usr/local/SWIG/bin/swig /usr/local/bin/swig	
+
+# cleaning up
+cd /
+rm -rf /scratch/swig-4.0.0

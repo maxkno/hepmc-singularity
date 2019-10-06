@@ -1,0 +1,26 @@
+#/bin/bash
+
+# Helper script to install HepMC2 event format
+
+# creating install directory
+echo "Installing HepMC"
+mkdir /usr/local/HepMC
+cd /scratch
+
+# download hepmc tarball
+wget lcgapp.cern.ch/project/simu/HepMC/download/HepMC-2.06.08.tar.gz
+tar -xf HepMC-2.06.08.tar.gz
+rm HepMC-2.06.08.tar.gz
+cd HepMC-2.06.08
+
+# install hepmc2
+./bootstrap
+./configure \
+    --prefix=/usr/local/HepMC \
+    --with-momentum=GEV \
+    --with-length=CM	
+make && make install
+
+# cleaning up
+cd /
+rm -rf /scratch/HepMC-2.06.08

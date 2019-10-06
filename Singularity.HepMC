@@ -10,79 +10,36 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     Maintainer Max Knobbe
     Version 0.1
 
+%files
+    install_HepMC
+    install_SWIG
+    install_Sherpa
+
 %post
-    #
     # default mount and installation paths
-    #
     mkdir /scratch /data 
 
-    #
     # additional packages
-    #
-    apt-get update
-    apt-get install wget
-    apt-get --assume-yes install automake	
-    apt-get --assume-yes install autoconf
-    apt-get --assume-yes install libtool
+    apt-get update && apt-get install wget
+    apt-get -y install automake autoconf libtool
 
-    #
     # install HepMC
-    #
-    echo "Installing HepMC"
-    mkdir /usr/local/HepMC
-    cd /scratch
-    wget lcgapp.cern.ch/project/simu/HepMC/download/HepMC-2.06.08.tar.gz
-    tar -xf HepMC-2.06.08.tar.gz
-    rm HepMC-2.06.08.tar.gz
-    cd HepMC-2.06.08
-    ./bootstrap
-    ./configure \
-        --prefix=/usr/local/HepMC \
-	--with-momentum=GEV \
-	--with-length=CM	
-    make
-    make install
+    chmod +x /install_HepMC
+    /install_HepMC
 
-    #
     # install SWIG
-    #
-    echo "Installing SWIG"
-    mkdir /usr/local/SWIG
-    cd /scratch
-    apt-get --assume-yes install g++
-    apt-get --assume-yes install libpcre3 libpcre3-dev
-    wget https://sourceforge.net/projects/swig/files/swig/swig-4.0.0/swig-4.0.0.tar.gz
-    tar -xf swig-4.0.0.tar.gz
-    cd swig-4.0.0
-    ./configure --prefix=/usr/local/SWIG
-    make
-    make install
-    ln -s  /usr/local/SWIG/bin/swig /usr/local/bin/swig	
-
-    #
+    chmod +x /install_SWIG
+    /install_SWIG
+    
     # install Sherpa
-    #
-    echo "Installing Sherpa"
-    apt-get --assume-yes install gfortran
-    mkdir /usr/local/Sherpa
-    cd /scratch
-    wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.6.tar.gz
-    tar -xf 'index.html?f=SHERPA-MC-2.2.6.tar.gz'
-    rm 'index.html?f=SHERPA-MC-2.2.6.tar.gz'
-    cd SHERPA-MC-2.2.6
-    ./configure --prefix /usr/local/Sherpa --enable-hepmc2=/usr/local/HepMC --enable-pyext --with-sqlite3=install
-    make -j4
-    make install -j4
+    chmod +x /install_Sherpa
 
-    #
     # Install additional Python Packages
-    #
-    python3 -m pip install vegas
-    python3 -m pip install tensorflow-probability==0.7.0
-  
+    python3 -m pip install vegas tqdm matplotlib seaborn pandas
+    python3 -m pip install tensorflow-probability==0.7.0  
 
 %runscript
     python3
 
 %test
-    # test that script is a success
+    # tests

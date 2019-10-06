@@ -1,0 +1,24 @@
+#/bin/bash
+
+# Helper script to install Sherpa
+
+# creating install directory
+echo "Installing Sherpa"
+mkdir /usr/local/Sherpa
+cd /scratch 
+
+# install necessary packages
+apt-get -y install gfortran
+
+# download Sherpa tarball
+wget https://sherpa.hepforge.org/downloads/?f=SHERPA-MC-2.2.6.tar.gz
+tar -xf 'index.html?f=SHERPA-MC-2.2.6.tar.gz'
+rm 'index.html?f=SHERPA-MC-2.2.6.tar.gz'
+cd SHERPA-MC-2.2.6
+
+# install Sherpa
+./configure --prefix /usr/local/Sherpa --enable-hepmc2=/usr/local/HepMC --enable-pyext --with-sqlite3=install
+make -j4 && make install -j4
+
+# cleaning up
+rm -rf /scratch/SHERPA-MC-2.2.6
