@@ -33,6 +33,7 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     
     # install Sherpa
     chmod +x /install_Sherpa
+    /install_Sherpa
 
     # Install additional Python Packages
     python3 -m pip install vegas tqdm matplotlib seaborn pandas
