@@ -4,3 +4,6 @@ Singularity build for the [HepMC](https://gitlab.com/tjansse/hep-monte-carlo) py
 
 Prinstalled Sherpa and HepMC data format
 
+## Building the Singularity Image
+
+'make image && make final'
