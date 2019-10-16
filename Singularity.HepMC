@@ -11,9 +11,11 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     Version 0.1
 
 %files
-    install_HepMC
-    install_SWIG
-    install_Sherpa
+    install_HepMC  /opt
+    install_SWIG   /opt
+    install_Sherpa /opt
+    logo.sh        /opt
+    bash.bashrc    /opt
 
 %post
     # default mount and installation paths
@@ -24,20 +26,27 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     apt-get -y install automake autoconf libtool
 
     # install HepMC
-    chmod +x /install_HepMC
-    /install_HepMC
+    chmod +x /opt/install_HepMC
+    /opt/install_HepMC
 
     # install SWIG
-    chmod +x /install_SWIG
-    /install_SWIG
+    chmod +x /opt/install_SWIG
+    /opt/install_SWIG
     
     # install Sherpa
-    chmod +x /install_Sherpa
-    /install_Sherpa
+    chmod +x /opt/install_Sherpa
+    /opt/install_Sherpa
 
     # Install additional Python Packages
+    python3 -m pip install numpy==1.16.2
     python3 -m pip install vegas tqdm matplotlib seaborn pandas
     python3 -m pip install tensorflow-probability==0.7.0  
+
+    # Adding totally cool logo to bashrc
+    rm /etc/bash.bashrc
+    chmod +x /opt/logo.sh
+    mv /opt/bash.bashrc /etc/bash.bashrc
+    chmod a+rwk /etc/bash.bashrc
 
 %runscript
     python3
