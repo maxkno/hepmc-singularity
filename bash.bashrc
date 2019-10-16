@@ -5,6 +5,8 @@ alias ls="ls --color=auto"
 
 /opt/logo.sh
 
+python3 check_gpu_avaiable.py
+
 echo -e "\e[0;33m"
 
 if [[ $EUID -eq 0 ]]; then
