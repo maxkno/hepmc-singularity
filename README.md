@@ -1,5 +1,9 @@
 # HepMC Singularity
 
+
+[![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/3671)
+
+
 Singularity build for the [HepMC](https://gitlab.com/tjansse/hep-monte-carlo) python package to use on cuda machines
 
 Prinstalled Sherpa and HepMC data format
