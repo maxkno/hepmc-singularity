@@ -38,7 +38,7 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     /opt/install_Sherpa
 
     # Install additional Python Packages
-    python3 -m pip install numpy==1.16.2
+    # python3 -m pip install numpy==1.16.2
     python3 -m pip install vegas tqdm matplotlib seaborn pandas
     python3 -m pip install tensorflow-probability==0.7.0  
 
@@ -46,7 +46,7 @@ From: tensorflow/tensorflow:1.14.0-gpu-py3
     rm /etc/bash.bashrc
     chmod +x /opt/logo.sh
     mv /opt/bash.bashrc /etc/bash.bashrc
-    chmod a+rwk /etc/bash.bashrc
+    chmod +x /etc/bash.bashrc
 
 %runscript
     python3
