@@ -3,20 +3,20 @@
 
 [![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/3671)
 
-
 Singularity build for the [HepMC](https://gitlab.com/tjansse/hep-monte-carlo) python package to use on cuda machines
 
 Prinstalled Sherpa and HepMC data format
 
-## Building the Singularity Image
-To circumvent bugs with prebuild nvidia containers, the Image first has to build into a sandbox container and than transformed into an actual singularity image.
+## Pulling from Singularity Hub
 
-Build the image with 
+Pull the container to and optionally provide a custom name:
+
 ```bash
-make image && make final
+singularity pull shub://maxkno/hepmc-singularity
+singularity pull --name avocado_container.sif shub://maxkno/hepmc-singularity
 ```
 
-## Using the image & additional python packages
+### Usage & additional python packages
 
 Easiest usage via: 
 ```bash
@@ -36,8 +36,14 @@ PYTHONPATH='/usr/local/Sherpa/lib/python3.6/site-packages':$PYTHONPATH
 export PYTHONPATH
 ```
 
-`
+## Building from source
+To circumvent bugs with prebuild nvidia containers, the Image first has to build into a sandbox container and than transformed into an actual singularity image.
+
+Build the image with 
+```bash
+https://gitlab.com/max.knobbe/hepmc-singularity.git
+make image && make final
+```
+
 
 ## Helper files used 
-
-
