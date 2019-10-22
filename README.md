@@ -12,8 +12,8 @@ Prinstalled Sherpa and HepMC data format
 Pull the container to and optionally provide a custom name:
 
 ```bash
-singularity pull shub://maxkno/hepmc-singularity
-singularity pull --name avocado_container.sif shub://maxkno/hepmc-singularity
+singularity pull shub://maxkno/hepmc-singularity:hepmc
+singularity pull --name avocado_container.sif shub://maxkno/hepmc-singularity:hepmc
 ```
 
 ### Usage & additional python packages
